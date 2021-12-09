@@ -1,0 +1,106 @@
+---
+title: Classification of time-series images using deep convolutional neural networks
+date: 2021-01-08 
+description: Nima Hatami 저자 Classification of time-series images using deep convolutional neural networks 논문 세미나 자료입니다. 
+featured_image: /assets/img/pages/2020-01-08-paper-figure1.png
+author: hwanhee
+---
+
+# Classification of time-series images using deep convolutional neural networks
+
+1. 논문 요약
+2. Introduction
+3. Recurrence Plots(RP)
+4. Convolutional Neural Network(CNN)
+5. 성능 평가 결과
+6. 데이터 적용 결과
+
+## 논문요약
+
+- Time-Series Classification에 관련된 알고리즘은 **대부분 1D로 분석**
+- **Recurrence Plots(RP)를 사용**해 Time-Series를 2D 이미지로 변환
+- **Convolutional Neural Network(CNN)**으로 분류 작업 진행
+- **UCR Time-Series Dataset**을 사용하여 성능평가 진행
+
+## Introduction
+
+- 시계열 데이터는 생의학, 금융, 산업 장비, 생체 인식 등 다양한 산업에서 생성되고, 활용
+- Curve fitting, function approximation, Prediction, Classification 등 다양한 분석 기법이 존재
+- 하지만, 이 논문에서는 **Classification에 초점**을 두고 있음
+- 논문에서 제안한 방법으로 **Clustering, Anomaly Detection에도 쉽게 적용 가능**
+- 최근에 **Deep Learning 모델**은 컴퓨터 비전 및 음성 인식에 대해서 **높은 성능**을 보여주고 있음
+- 기존 Feature-Based Classification와 다르게 CNN을 사용하면 **수작업으로 Feature를 만들 필요가 없음**
+- Feature Learning과 Classification이 하나의 모델로 통합되면서 분류 성능이 향상
+
+##  Recurrence Plots(RP)
+
+- Recurrence Plots이란?
+	> 2차원 데이터 값의 회귀를 표현함으로써 m-차원 위상 공간 궤도(움직임)을 탐색하는 것을 목표로 함.
+
+- 위상공간
+	> 어떤 점(데이터)의 '근처'가 무엇인지에 대한 정보를 가지고 있으며, 점(데이터) 사이의 거리나 넓이, 부피 등 정보를 포함하지 않는 공간
+	> 쉽게 설명하면 Time-Series 그래프 자체가 위상 공간이며, 그래프는 데이터 사이의 거리나 넓이 같은 정보를 포함하지 않음.
+	> 아래의 그림은 본 논문에서 다양한 시계열 데이터를 Recurrence Plot으로 변환한 예제(Figure. 3)
+
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure1.png" alt="Recurrence Plot 예" width="700" height="300">*Recurrence Plot 예*
+
+
+-  Recurrence Plot 알고리즘
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure2.png" alt="시계열 데이터 예" width="500" height="350">*시계열 데이터 예* <img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure3.png" alt="공간 궤적으로 변환한 예" width="500" height="350">*공간 궤적으로 변환한 예*
+
+
+시계열 데이터를 공간 궤적으로 변환하는 방법은 아래와 같음
+시계열 데이터는 [1,0],[2,1],[3,2],[4,1],[5,2],[6,3][7,4],[8,3],[9,2],[10,3],[11,2],[12,1]로 표현될 수 있음
+그리고 궤적의 데이터는 s1:(x1,x2) s2:(x2,x3) … sn:(xn,x(n+1)) 와 같이 계산되며
+s1:(0,1) s2:(1,2) s3:(2,1) … s11(2,1) 표현이 됨.
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure4.png" alt="공간 궤적을 거리행렬 변환한 예" width="500" height="500">*공간 궤적을 거리행렬 변환한 예*
+
+위 거리행렬은 모든 궤적 사이의 거리를 기록한 것이며, 
+두 궤적 사이의 거리가 지정한 임게치 보다 낮으면 Recurrence를 나타냄.
+
+
+## Convolutional Neural Network
+
+- CNN이란?
+  > CNN의 Convolution은 한글로 **합성 곱**
+  > Convolution 전처리 작업이 들어가는 Neural Network 모델
+  > 이미지를 대표할 수 있는 feature를 도출하고 map을 만들어 냄.
+- 왜 CNN인가?
+  > 일반적인 Deep Neural Network(DNN)은 1차원 형태의 데이터를 사용
+  > 2차원 이미지가 입력이 되면 1차원으로 변환해야 함.
+  > 계산 과정에서 공간적/지역적 정보가 손실됨.
+  > 그리고 추상화 과정없이 바로 연산 과정으로 넘어가 학습시간이 오래 걸림.
+  > 하지만 CNN은 이미지의 공간적/지역적 정보를 유지
+  > 이미지의 픽셀의 연관성을 살려 학습 및 연산을 용이하게 함.
+  > 아래의 이미지는 Convolution의 작동 원리를 나타냄.
+  > CNN에 대해서 자세한 내용은 다른 문서를 찾아보면 더욱 자세하게 설명되어 있으므로 이만 생략
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure5.gif" alt="Convolution의 작동 원리-1"/>*Convolution의 작동 원리-1*
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure6.png" alt="Convolution의 작동 원리-2"/>*Convolution의 작동 원리-2*
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure7.png" alt="CNN"/>*CNN 네트워크 구조*
+
+
+## 성능 평가 결과
+
+- 본 논문에서는 UCR Time-Series Dataset을 이용하여 성능평가를 진행함.
+- 커피 수요량, 전력 사용량 등 실제 현장에서 발생한 데이터들의 집합
+- 다른 논문에서 제안된 알고리즘과 성능을 비교하는데 효율적
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure8.png" alt="제안한 알고리즘의 성능평가 결과"/>*공간 궤적으로 변환한 예*
+
+- 본 논문에서 제안한 알고리즘이 다른 알고리즘 보다 error rate가 더 낮은걸 확인할 수 있음.
+
+
+## 반도체 설비 데이터 적용 결과
+
+- 실제 반도체 설비의 데이터를 사용해  Recurrence Plot을 아래와 같이 그려보았음.
+
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure9.png" alt="정상 데이터" width="600" height="400"/>*정상 데이터*
+	
+<img src="../assets/img/theme/hwanhee/2020-01-08-paper-figure10.png" alt="비 정상 데이터" width="600" height="400"/>*비 정상 데이터*
+
+
+- 위와 같이 정상 데이터와 비 정상 데이터를 Recurrence Plot으로 그렸을 때, 사람의 눈으로 비교한 경우에 확연한 차이가 있었음.

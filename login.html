@@ -1,0 +1,21 @@
+---
+layout: default
+description: loginPage
+permalink: /login.html
+---
+<div class="fullWidth mask d-flex justify-content-start align-items-center">
+    <a href="{{ site.baseurl }}/" class="navbar-brand mr-lg-5">
+        <img src="{{ site.data.settings.header_settings.logo_image | relative_url }}" style="height: 50px;">
+      </a>
+</div>
+<main class="form-signin" style="display: flex; justify-content: center;">
+    <form style="width: 300px;">
+      <label for="inputID" class="visually-hidden" style="margin-top: 100px;">ID</label>
+      <input type="text" id="inputID" class="form-control" placeholder="ID" required autofocus>
+      <label for="inputPassword" class="visually-hidden">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <div class="w-100 btn btn-lg btn-primary" id="submit">Sign in</div>
+      <p class="mt-5 mb-3 text-center">&copy; 2017-2021</p>
+    </form>
+  </main>
+
