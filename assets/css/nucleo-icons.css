@@ -593,13 +593,8 @@ License - nucleoapp.com/license/
   content: "\ea65";
 }
 
-/* .font-first-color {
-  display: inline-block !important;
-} */
-
 .font-first-color::first-letter {
   color: red;  
 } 
-
 
 /* all icon font classes list here */
