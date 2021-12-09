@@ -593,8 +593,13 @@ License - nucleoapp.com/license/
   content: "\ea65";
 }
 
+.font-first-color {
+  display: inline-block;
+  /* font-size: 1em; */
+}
+
 .font-first-color::first-letter {
-  color: red;
+  color: red;  
 } 
 
 
